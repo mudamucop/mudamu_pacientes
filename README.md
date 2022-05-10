@@ -1,6 +1,5 @@
 # mudamu
 
-dsada
 
 ## Getting started
 
