@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="fragments/head.html::head" th:remove="tag"></div>
+
+<body>
+     <!--SOLO EN ESTA PAGINA-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+    
+   <div class="container px-5 pt-0 mt-0 bg-gray rounded">
+        <div id="myTab" role="tablist">
+            <div id="back" class="py-3 px-1 mx-2">
+                <a class="btn btn-secondary" th:href="@{'/userForm/cancel'}">Back</a>
+            </div>
+            <div class="container-fluid">
+                <div class="card card-outline-secondary mb-4">
+                    <div class="card-header">
+                        <h3 class="mb-0">Change Password</h3>
+                    </div>
+                    <div class="card-body">
+                        <form class="form" role="form" autocomplete="off" th:object="${passwordForm}"
+                            th:action="@{'/editUser/changePassword/'+ ${user.id}}" method="post">
+                            <div class="form-group">
+                                <label for="inputPasswordNew">New Password</label>
+                                <input type="password" class="form-control" id="inputPasswordNew"
+                                    th:field="${passwordForm.newPassword}" required="">
+                                <span class="form-text small text-muted">
+                                    The password must <b><em>not</em></b> contain spaces.
+                                </span>
+                                <div class="alert-danger" th:if="${#fields.hasErrors('newPassword')}"
+                                    th:errors="*{newPassword}">Password</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPasswordNewVerify">Verify</label>
+                                <input type="password" class="form-control" id="inputPasswordNewVerify"
+                                    th:field="${passwordForm.confirmPassword}" required="">
+                                <span class="form-text small text-muted">
+                                    To confirm, type the <b>new</b> password again.
+                                </span>
+                                <div class="alert-danger" th:if="${#fields.hasErrors('confirmPassword')}"
+                                    th:errors="*{confirmPassword}">Password</div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-lg float-right">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card card-outline-secondary mb-4">
+                    <div class="card-header">
+                        <h3 class="mb-0">Change Email</h3>
+                    </div>
+                    <div class="card-body">
+                        <form class="form" role="form" autocomplete="off"
+                            th:action="@{'/editUser/changeEmail/'+ ${user.id}}" method="post">
+                            <div class="form-group">
+                                <label for="inputResetPasswordEmail">New Email</label>
+                                <input type="email" class="form-control" id="inputResetPasswordEmail" required="" name="email">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-lg float-right">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
