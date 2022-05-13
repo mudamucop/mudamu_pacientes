@@ -18,7 +18,7 @@ import com.Mudamu.model.User.User;
 public class UserRESTClient {
 	//localhost/Servidor ->http://localhost:8080/AlbumDbCRUD/resources/user		
 	
-	String urlDDBBService = "http://localhost:8080";
+	String urlDDBBService = "http://35.238.46.126/mudamuMysql/service/user/";
 	
 	ClientConfig clientConfig = new DefaultClientConfig();
 	String response;  

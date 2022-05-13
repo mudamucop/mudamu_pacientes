@@ -39,7 +39,7 @@ public class LoginController {
 
 		System.out.println("sada");
 
-		return "password";
+		return "register";
 	}
 	 
 	@GetMapping("/signup")
