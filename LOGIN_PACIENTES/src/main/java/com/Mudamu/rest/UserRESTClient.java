@@ -3,6 +3,10 @@ package com.Mudamu.rest;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -13,12 +17,11 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 import com.Mudamu.model.User.User;
 
-
 @Service
 public class UserRESTClient {
 	//localhost/Servidor ->http://localhost:8080/AlbumDbCRUD/resources/user		
 	
-	String urlDDBBService = "http://35.238.46.126/mudamuMysql/service/user/";
+	String urlDDBBService = "http://mudamudb.duckdns.org/mudamuMysql/service/user";
 	
 	ClientConfig clientConfig = new DefaultClientConfig();
 	String response;  
@@ -82,10 +85,10 @@ public class UserRESTClient {
 			}
 		else {response="La llamada no ha sido correcta";}
 
-		return user;
+		return user;	
 	}
 
-	public String postUserXml(User user) {
+	public String postUserXml(@ModelAttribute("userForm") User user) {
 		WebResource webResource = client.resource(urlDDBBService).path("register");
 		ClientResponse clientResponse = webResource.type("application/xml").post(ClientResponse.class, user);
 		status= clientResponse.getStatus();

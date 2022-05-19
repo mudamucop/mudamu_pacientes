@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Aitor Astorga and muDamu team">
+    <title>Introducir síntomas</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/muDamu.png" />
+
+    <!-- Default font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <!-- Bootstrap core JS -->
+    <script src="js/bootstrap.js"></script>
+
+    <script src="js/drag-and-drop.js"></script>
+</head>
+
+<body>
+    <!-- Main content -->
+    <main class="container my-4">
+        <div class="card bg-light">
+            <div class="card-header justify-content-center">
+                <div class="text-center mb-2">
+                    <h1>Introducir Síntomas</h1>
+                </div>
+            </div>
+
+            <div class="container row g-0">
+                <div class="card m-2 col">
+                    <div class="card-header justify-content-center">
+                        <div class="text-center mb-2">
+                            Síntomas
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul id="drop-source" class="list-group dragplace w-100 h-100">
+                            <tr th:each="sintoma: ${sintomas}">
+                                <li class="list-group-item mb-2 border drag btn-secondary" draggable="true"
+                                    th:text="${sintoma.nombre}"></li>
+                            </tr>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card m-2 col">
+                    <div class="card-header justify-content-center">
+                        <div class="text-center mb-2">
+                            Buscar Síntomas
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <form role="search" class="col mb-3 mb-lg-0">
+                                <input type="search" class="form-control text-white bg-muted" placeholder="Search..."
+                                    aria-label="Search">
+                            </form>
+                            <button type="button" class="col-3 btn btn-outline-dark me-3">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card m-2 col">
+                    <div class="card-header justify-content-center">
+                        <div class="text-center mb-2">
+                            Sus Síntomas
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul id="drop-destiny" class="list-group dragplace w-100 h-100">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

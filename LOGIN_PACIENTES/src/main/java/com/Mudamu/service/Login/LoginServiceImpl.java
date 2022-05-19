@@ -6,7 +6,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import com.Mudamu.model.CitasPaciente;
 import com.Mudamu.model.User.User;
+import com.Mudamu.rest.CitaRESTClient;
 //import edu.mondragon.XyMU.model.User.User2;
 import com.Mudamu.rest.UserRESTClient;
 
@@ -18,19 +24,14 @@ public class LoginServiceImpl implements LoginService{
 	
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	CitaRESTClient citaRESTClient;
 	
 	private boolean checkUsernameAvailable(User user) throws Exception {
-		User userFound = userRESTClient.getUserName(user.getUsername());
-		if (userFound.getIDPaciente() != null) {
+		User userFound = userRESTClient.getUserName(user.getTarjetaSanitaria());
+		if (userFound.getpacienteID() != null) {
 			throw new Exception("Username no disponible");
-		}
-		return true;
-	}
-
-	private boolean checkPasswordValid(User user) throws Exception {
-		if ( !user.getPassword().equals(user.getConfirmPassword())) {
-			throw new Exception("Password y Confirm Password no son iguales");
-			
 		}
 		return true;
 	}
@@ -39,11 +40,10 @@ public class LoginServiceImpl implements LoginService{
 	@Override
 	public User createUser(User user2) throws Exception {
 		User user = new User();
-		user.setIDPaciente(user2.getIDPaciente());
-		user.setUsername(user2.getUsername());
 		user.setTarjetaSanitaria(user2.getTarjetaSanitaria());
 		user.setPassword(user2.getPassword());
-		if (checkUsernameAvailable(user2) && checkPasswordValid(user2)) {
+		user.setSalt("salt");
+		if (checkUsernameAvailable(user2)) {
 			String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
 			user.setPassword(encodedPassword);
 			userRESTClient.postUserXml(user);
@@ -53,7 +53,7 @@ public class LoginServiceImpl implements LoginService{
 	
 	
 	protected void mapUser(User from,User to) {
-		to.setUsername(from.getUsername());
+		to.setTarjetaSanitaria(from.getTarjetaSanitaria());
 		/*to.setName(from.getName());
 		to.setSurname(from.getSurname());
 		to.setEmail(from.getEmail());*/
@@ -75,5 +75,22 @@ public class LoginServiceImpl implements LoginService{
 				.getUserName(loggedUser.getUsername());
 		
 		return myUser;
+	}
+
+
+	@Override
+	public Object getCitas(User user) {
+		CitasPaciente citas = citaRESTClient.getCitas(user);
+
+		return citas.getListaCD();
+	}
+
+
+	@Override
+	public User loadUserByUsername(String username) {
+		
+		User medico = userRESTClient.getUserName(username);
+
+		return medico;
 	}
 }
