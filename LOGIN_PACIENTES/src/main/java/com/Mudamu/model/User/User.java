@@ -7,15 +7,17 @@ import javax.xml.bind.annotation.XmlType;
 
 
 @XmlRootElement
-@XmlType(propOrder = {"pacienteID", "salt", "tarjetaSanitaria", "password"})
+@XmlType(propOrder = {"pacienteID", "tarjetaSanitaria", "salt", "username", "password"})
 public class User implements Serializable{
 	private static final long serialVersionUID = 1671417246199538663L;
 
 	
 	private Integer pacienteID;
-	private String tarjetaSanitaria;
+	private Integer tarjetaSanitaria;
 	private String salt;
+	private String username;
 	private String password;
+	private String confirmPassword;
 
 	public User() {
 		super();
@@ -34,41 +36,58 @@ public class User implements Serializable{
 		this.pacienteID = pacienteID;
 	}
 
-	public User(int pacienteID,String salt,String tarjetaSanitaria,String password)
+	public User(int pacienteID,Integer tarjetaSanitaria,String salt,String username,String password)
     {
         this.pacienteID = pacienteID;
         this.salt = salt;
-		this.tarjetaSanitaria = tarjetaSanitaria;
+        this.username = username;
         this.password = password;
     }
 
-	public Integer getpacienteID() {
+	public Integer getIDPaciente() {
 		return pacienteID;
 	}
 
-	public void setpacienteID(Integer pacienteID) {
+	public void setIDPaciente(Integer pacienteID) {
 		this.pacienteID = pacienteID;
 	}
 
-	public String getTarjetaSanitaria(){
+	public Integer getTarjetaSanitaria(){
 		return tarjetaSanitaria;
 	}
 
-	public void setTarjetaSanitaria(String tarjetaSanitaria) {
+	public void setTarjetaSanitaria(Integer tarjetaSanitaria) {
 		this.tarjetaSanitaria = tarjetaSanitaria;
 	}
 	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}	
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	
 
 	@Override
 	public String toString() {
-		return "pacienteID: "+pacienteID+" salt: "+salt+" tarjetaSanitaria: "+tarjetaSanitaria+" password: "+password;
+		return "Id: "+pacienteID+" tarjeta: "+tarjetaSanitaria+" salt: "+salt+" username: "+username+" password: "+password;
 	}
 
 	@Override
@@ -78,6 +97,7 @@ public class User implements Serializable{
 		result = prime * result + ((pacienteID == null) ? 0 : pacienteID.hashCode());
 		result = prime * result + ((tarjetaSanitaria == null) ? 0 : tarjetaSanitaria.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		result = prime * result + ((salt == null) ? 0 : salt.hashCode());	
 
 		return result;
@@ -106,6 +126,11 @@ public class User implements Serializable{
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
 			return false;
 		return true;
 	}
