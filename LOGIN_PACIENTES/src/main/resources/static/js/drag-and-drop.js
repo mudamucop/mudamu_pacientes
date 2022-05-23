@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         if (dropSource.classList.contains('over') || dropDestiny.classList.contains('over')) {
             dragSourceElement.style.opacity = '1';
             let cloneNode = dragSourceElement.cloneNode(true);
+            cloneNode.classList.add('sintoma-seleccionado');
             this.appendChild(cloneNode);
             dragSourceElement.remove();
         }
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     let items = document.querySelectorAll('.drag');
-    items.forEach(function(item) {
+    items.forEach(function (item) {
         //item.addEventListener('dragenter', handleDragEnter, false);
 
         item.addEventListener('dragstart', handleDragStart, false);
@@ -86,4 +87,43 @@ document.addEventListener('DOMContentLoaded', (event) => {
     dropSource.addEventListener('dragenter', handleDragEnter, false);
     dropSource.addEventListener('dragleave', handleDragLeave, false);
     dropSource.addEventListener('drop', handleDrop, false);
+
+    /* Get síntomas */
+
+    // Si quieres coger algo más aparte de los IDs, puedes hacerlo aquí
+    function getSintomasSeleccionados() {
+        let sintomas = [];
+        let sintomasSeleccionados = document.getElementsByClassName('sintoma-seleccionado');
+        for (let i = 0; i < sintomasSeleccionados.length; i++) {
+            let sintoma = [];
+            sintoma.push(sintomasSeleccionados[i].id);
+            sintoma.push(sintomasSeleccionados[i].innerText);
+            sintomas.push(sintoma);
+        }
+        return sintomas;
+    }
+
+    function handleClickPrediccion(e) {
+        let sintom = getSintomasSeleccionados();
+
+        console.log(sintom);
+        $.ajax({
+            url: '/getPrediction',
+            type: "POST",
+            data: {'sintomas': sintom},
+            contentType: "application/json",
+            success: function () {
+                $("#exampleModal").hide('medium');
+                $("#success").modal('show');
+                setTimeout(function(){location.href = 'http://localhost:8080/pacPage'; }, 2000);
+            },
+            error: function () {
+
+            },
+        });
+    }
+
+    let btnPrediccion = document.getElementById('predecir');
+    btnPrediccion.addEventListener('click', handleClickPrediccion, false);
 });
+

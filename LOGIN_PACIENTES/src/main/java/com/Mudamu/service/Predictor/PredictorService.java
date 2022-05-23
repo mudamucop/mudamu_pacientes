@@ -1,11 +1,12 @@
 package com.Mudamu.service.Predictor; 
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface PredictorService {
 
 	public Object getSintomas();
 	
-	public List<Double> getDisease(/*parametros para la prediccion String platform, int IDPaciente, */);
+	public List<String> getDisease(Map<Integer, String> mapa);
 }
