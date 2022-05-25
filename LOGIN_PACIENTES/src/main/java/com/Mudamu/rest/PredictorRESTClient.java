@@ -63,5 +63,12 @@ public class PredictorRESTClient {
 
 	public void sendNode() {
 		WebResource webResource = client.resource(urlIAService).path("ia");
+
+		ClientResponse clientResponse = webResource.accept("application/json").get(ClientResponse.class);
+		status = clientResponse.getStatus();
+
+		if (status == 200) {
+			System.out.println("Done");
+		}
 	}	
 }
