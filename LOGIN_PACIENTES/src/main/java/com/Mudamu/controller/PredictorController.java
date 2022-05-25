@@ -64,7 +64,7 @@ public class PredictorController {
 
 		//List<String> enfermedadesPrediccion = predictorService.getDisease(mapa);
 
-		return "redirect:/prediction";
+		return "redirect:/pacPage";
 	}
 
 	@GetMapping("/node")

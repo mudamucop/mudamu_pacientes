@@ -108,14 +108,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         console.log(sintom);
         $.ajax({
-            url: '/getPrediction',
+            url: '/pacientes/getPrediction',
             type: "POST",
             data: {'sintomas': sintom},
             contentType: "application/json",
             success: function () {
                 $("#exampleModal").hide('medium');
                 $("#success").modal('show');
-                setTimeout(function(){location.href = 'http://localhost:8080/pacPage'; }, 2000);
+                setTimeout(function(){location.href = 'http://mudamu.duckdns.org/pacientes/pacPage'; }, 2000);
             },
             error: function () {
 

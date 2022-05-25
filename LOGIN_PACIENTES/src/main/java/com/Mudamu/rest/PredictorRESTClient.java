@@ -62,6 +62,6 @@ public class PredictorRESTClient {
 	}
 
 	public void sendNode() {
-		WebResource webResource = client.resource(urlIAService).path("");
+		WebResource webResource = client.resource(urlIAService).path("ia");
 	}	
 }
