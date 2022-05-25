@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.Mudamu.service.Predictor.PredictorService;
 
+import org.apache.tomcat.util.json.JSONParser;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
 //import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +40,13 @@ public class PredictorController {
 
 	Map<Integer, String> mapa = new HashMap<>();
 
-    @GetMapping("/prediction")
-	public String sintomas(Model model ) throws Exception {
+	@GetMapping("/prediction")
+	public String sintomas(Model model) throws Exception {
 		String url = "index";
 
 		model.addAttribute("sintomas", "active");
 		model.addAttribute("sintomas", predictorService.getSintomas());
-		
+
 		return url;
 	}
 
@@ -50,14 +55,28 @@ public class PredictorController {
 
 		System.out.println(data);
 		String splitData[] = data.split("&");
-		for(int i=0;i<splitData.length-1;i++){
-			mapa.put(Integer.parseInt(splitData[i].split("=")[1]), 
-			splitData[i+1].split("=")[1]);
+		for (int i = 0; i < splitData.length - 1; i++) {
+			mapa.put(Integer.parseInt(splitData[i].split("=")[1]),
+					splitData[i + 1].split("=")[1]);
 			i++;
 		}
 
-		List<String> enfermedadesPrediccion = predictorService.getDisease(mapa);
+		// List<String> enfermedadesPrediccion = predictorService.getDisease(mapa);
 
 		return "redirect:/prediction";
+	}
+
+	@GetMapping("/node")
+	public JSONObject sintomas() throws JSONException {
+		JSONObject object = null;
+
+		JSONArray array = new JSONArray(
+				"[{\"No\":\"17\",\"Name\":\"Andrew\"},{\"No\":\"18\",\"Name\":\"Peter\"}, {\"No\":\"19\",\"Name\":\"Tom\"}]");
+		
+		for (int i = 0; i < array.length(); i++) {
+			object = array.getJSONObject(i);
+		}
+
+		return object;
 	}
 }
