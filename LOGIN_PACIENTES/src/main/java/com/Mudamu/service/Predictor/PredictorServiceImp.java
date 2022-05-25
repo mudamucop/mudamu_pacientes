@@ -32,4 +32,9 @@ public class PredictorServiceImp implements PredictorService{
 	public List<String> getDisease(Map<Integer, String> mapa) {
 		return predictorRESTClient.getDisease(mapa);
 	}
+
+	@Override
+	public void sendNode(){
+		predictorRESTClient.sendNode();
+	}
 }

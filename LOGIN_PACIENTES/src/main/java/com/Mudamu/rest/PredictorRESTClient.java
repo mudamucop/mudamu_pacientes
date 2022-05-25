@@ -15,7 +15,7 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 @Service
 public class PredictorRESTClient {
 	// localhost -> Servidor IA
-	String urlIAService = "http://mudamuia.duckdns.org:3000";
+	String urlIAService = "http://34.122.134.5:1880";
 
 	ClientConfig clientConfig = new DefaultClientConfig();
 	String response;
@@ -60,4 +60,8 @@ public class PredictorRESTClient {
 		}
 		return lista;
 	}
+
+	public void sendNode() {
+		WebResource webResource = client.resource(urlIAService).path("");
+	}	
 }
