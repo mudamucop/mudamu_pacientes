@@ -8,7 +8,5 @@ public interface PredictorService {
 
 	public Object getSintomas();
 	
-	public List<String> getDisease(Map<Integer, String> mapa);
-
-	public void sendNode();
+	public void getDisease(Map<Integer, String> mapa, int idPac);
 }

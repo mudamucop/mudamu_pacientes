@@ -3,6 +3,8 @@ package com.Mudamu.service.Predictor;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.jettison.json.JSONException;
+
 //import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +31,7 @@ public class PredictorServiceImp implements PredictorService{
 	}
 
 	@Override
-	public List<String> getDisease(Map<Integer, String> mapa) {
-		return predictorRESTClient.getDisease(mapa);
-	}
-
-	@Override
-	public void sendNode(){
-		predictorRESTClient.sendNode();
+	public void getDisease(Map<Integer, String> mapa, int idPac) {
+		predictorRESTClient.getDisease(mapa, idPac);
 	}
 }

@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -15,7 +21,7 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 @Service
 public class PredictorRESTClient {
 	// localhost -> Servidor IA
-	String urlIAService = "http://34.122.134.5:1880";
+	String urlIAService = "http://34.72.161.23:1880/ia";
 
 	ClientConfig clientConfig = new DefaultClientConfig();
 	String response;
@@ -26,8 +32,7 @@ public class PredictorRESTClient {
 		client = Client.create(clientConfig);
 	}
 
-	// {platform}/{developer}/{total_budget}/{music_budget}/{design_budget}/{gameplay_budget}/{year}/{month}
-	public List<String> getDisease(Map<Integer, String> mapa) {
+	public void getDisease(Map<Integer, String> mapa, int idPac) {
 
 		List<String> lista = new ArrayList<>();
 		String lista2 = "";
@@ -35,40 +40,24 @@ public class PredictorRESTClient {
 
 		for (Map.Entry<Integer, String> entry : mapa.entrySet()) {
 			sb.append(entry.getKey() + ";");
-
-			// System.out.println(entry.getKey() + "/" + );
 		}
 
-		// WebResource webResource =
-		// client.resource(urlIAService).path("").path(sb.toString());
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		JSONObject personJsonObject = new JSONObject();
 
-		WebResource webResource = client.resource(urlIAService).path("").path("Palpitations");
+		sb.deleteCharAt(sb.length()-1);  
+		
 
-		ClientResponse clientResponse = webResource.accept("application/json").get(ClientResponse.class);
-		status = clientResponse.getStatus();
-		if (status == 200) {
-			lista2 = clientResponse.getEntity(String.class);
-
-			String ncadena = lista2.substring(1, lista2.length() - 1);
-			String[] tokens = ncadena.split(",");
-			for (int in = 0; in < tokens.length; in++) {
-				lista.add(tokens[in]);
-			}
-
-		} else {
-			lista = null;
+		try {
+			personJsonObject.put("pacienteID", idPac);
+			personJsonObject.put("sintomas", sb.toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
-		return lista;
+
+		HttpEntity<String> request = new HttpEntity<String>(personJsonObject.toString(), headers);
+		restTemplate.postForObject(urlIAService, request, String.class);
 	}
-
-	public void sendNode() {
-		WebResource webResource = client.resource(urlIAService).path("ia");
-
-		ClientResponse clientResponse = webResource.accept("application/json").get(ClientResponse.class);
-		status = clientResponse.getStatus();
-
-		if (status == 200) {
-			System.out.println("Done");
-		}
-	}	
 }

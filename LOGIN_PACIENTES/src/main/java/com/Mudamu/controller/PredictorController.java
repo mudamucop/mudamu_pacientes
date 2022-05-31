@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.Mudamu.model.User.User;
+import com.Mudamu.service.Login.LoginService;
 import com.Mudamu.service.Predictor.PredictorService;
 
 import org.codehaus.jettison.json.JSONArray;
@@ -20,6 +22,7 @@ import org.codehaus.jettison.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -31,11 +34,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 @Controller
 public class PredictorController {
 	@Autowired
 	PredictorService predictorService;
+
+	@Autowired
+	LoginService userService;
 
 	Map<Integer, String> mapa = new HashMap<>();
 
@@ -60,24 +68,11 @@ public class PredictorController {
 			i++;
 		}
 
-		predictorService.sendNode();
-
-		//List<String> enfermedadesPrediccion = predictorService.getDisease(mapa);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user = userService.loadUserByUsername(((UserDetails) principal).getUsername());
+		
+		predictorService.getDisease(mapa, user.getpacienteID());
 
 		return "redirect:/pacPage";
-	}
-
-	@GetMapping("/node")
-	public JSONObject sintomas() throws JSONException {
-		JSONObject object = null;
-
-		JSONArray array = new JSONArray(
-				"[{\"No\":\"17\",\"Name\":\"Andrew\"},{\"No\":\"18\",\"Name\":\"Peter\"}, {\"No\":\"19\",\"Name\":\"Tom\"}]");
-		
-		for (int i = 0; i < array.length(); i++) {
-			object = array.getJSONObject(i);
-		}
-
-		return object;
 	}
 }
