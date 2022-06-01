@@ -15,7 +15,7 @@
             "name": "Launch MudamuApplication",
             "request": "launch",
             "mainClass": "com.Mudamu.MudamuApplication",
-            "projectName": "muDamu",
+            "projectName": "muDamu"
         },
         {
             "type": "java",
