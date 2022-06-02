@@ -15,7 +15,8 @@
             "name": "Launch MudamuApplication",
             "request": "launch",
             "mainClass": "com.Mudamu.MudamuApplication",
-            "projectName": "muDamu"
+            "projectName": "muDamu",
+            "vmArgs": "--add-opens java.base/java.lang=ALL-UNNAMED"
         },
         {
             "type": "java",
