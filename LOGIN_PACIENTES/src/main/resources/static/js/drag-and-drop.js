@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             sintoma.push(sintomasSeleccionados[i].innerText);
             sintomas.push(sintoma);
         }
+        console.log(sintomas);
         return sintomas;
     }
 
@@ -112,14 +113,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         console.log(sintom);
         $.ajax({
-            url: '/pacientes/getPrediction',
-            //url: '/getPrediction',
+            //url: '/pacientes/getPrediction',
+            url: '/getPrediction',
             type: "POST",
             data: { 'sintomas': sintom },
             contentType: "application/json",
+            cache: false,
             success: function() {
                 $("#exampleModal").hide('medium');
-                $("#success").modal('show');
+                document.getElementById("success").classList.remove("d-none");
+                //$("#success").modal('show');
                 setTimeout(function() { location.href = 'http://mudamu.duckdns.org/pacientes/pacPage'; }, 2000);
             },
             error: function() {
