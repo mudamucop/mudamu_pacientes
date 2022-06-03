@@ -113,8 +113,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         console.log(sintom);
         $.ajax({
-            //url: '/pacientes/getPrediction',
-            url: '/getPrediction',
+            url: '/pacientes/getPrediction',
+            //url: '/getPrediction',
             type: "POST",
             data: { 'sintomas': sintom },
             contentType: "application/json",
