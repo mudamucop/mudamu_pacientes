@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     var script = document.createElement('script');
-    script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+    script.src = 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js';
     document.getElementsByTagName('head')[0].appendChild(script);
 
     function handleClickPrediccion(e) {
