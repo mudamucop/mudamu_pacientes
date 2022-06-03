@@ -103,9 +103,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return sintomas;
     }
 
-    var script = document.createElement('script');
-    script.src = 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js';
-    document.getElementsByTagName('head')[0].appendChild(script);
+    
 
     function handleClickPrediccion(e) {
         let sintom = getSintomasSeleccionados();
