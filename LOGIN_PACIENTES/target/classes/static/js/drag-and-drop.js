@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     var script = document.createElement('script');
-    script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+    script.src = '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js';
     document.getElementsByTagName('head')[0].appendChild(script);
 
     function handleClickPrediccion(e) {
@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.log(sintom);
         $.ajax({
             url: '/pacientes/getPrediction',
+            //url: '/getPrediction',
             type: "POST",
             data: { 'sintomas': sintom },
             contentType: "application/json",

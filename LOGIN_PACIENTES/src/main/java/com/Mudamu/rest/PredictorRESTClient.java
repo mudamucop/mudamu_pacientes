@@ -21,7 +21,7 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 @Service
 public class PredictorRESTClient {
 	// localhost -> Servidor IA
-	String urlIAService = "http://34.72.161.23:1880/ia";
+	String urlIAService = "http://mudamudb.duckdns.org:1880/ia";
 
 	ClientConfig clientConfig = new DefaultClientConfig();
 	String response;
