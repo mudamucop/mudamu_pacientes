@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     let items = document.querySelectorAll('.drag');
-    items.forEach(function (item) {
+    items.forEach(function(item) {
         //item.addEventListener('dragenter', handleDragEnter, false);
 
         item.addEventListener('dragstart', handleDragStart, false);
@@ -103,6 +103,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         return sintomas;
     }
 
+    var script = document.createElement('script');
+    script.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+    document.getElementsByTagName('head')[0].appendChild(script);
+
     function handleClickPrediccion(e) {
         let sintom = getSintomasSeleccionados();
 
@@ -110,14 +114,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
         $.ajax({
             url: '/pacientes/getPrediction',
             type: "POST",
-            data: {'sintomas': sintom},
+            data: { 'sintomas': sintom },
             contentType: "application/json",
-            success: function () {
+            success: function() {
                 $("#exampleModal").hide('medium');
                 $("#success").modal('show');
-                setTimeout(function(){location.href = 'http://mudamu.duckdns.org/pacientes/pacPage'; }, 2000);
+                setTimeout(function() { location.href = 'http://mudamu.duckdns.org/pacientes/pacPage'; }, 2000);
             },
-            error: function () {
+            error: function() {
 
             },
         });
@@ -126,4 +130,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let btnPrediccion = document.getElementById('predecir');
     btnPrediccion.addEventListener('click', handleClickPrediccion, false);
 });
-
