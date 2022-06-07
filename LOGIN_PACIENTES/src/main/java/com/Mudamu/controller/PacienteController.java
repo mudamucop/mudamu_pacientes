@@ -77,7 +77,7 @@ public class PacienteController {
 			channel.exchangeDeclare(EXCHANGE_NAME, "topic", true);
 
 			channel.basicPublish(EXCHANGE_NAME, "admin", null,
-					(user.getpacienteID() + " ha cancelado la cita").getBytes());
+					(user.getTarjetaSanitaria() + " ha cancelado la cita").getBytes());
 
 			channel.close();
 
