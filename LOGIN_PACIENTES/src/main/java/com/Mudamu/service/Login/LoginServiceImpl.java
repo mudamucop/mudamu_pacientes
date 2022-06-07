@@ -93,4 +93,10 @@ public class LoginServiceImpl implements LoginService{
 
 		return medico;
 	}
+
+
+	@Override
+	public void cancelarCita(Integer citaID) {
+		citaRESTClient.cancelarCita(citaID);
+	}
 }

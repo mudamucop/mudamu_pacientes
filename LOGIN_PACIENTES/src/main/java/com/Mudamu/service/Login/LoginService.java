@@ -15,5 +15,7 @@ public interface LoginService {
     public Object getCitas(User user);
 
     public User loadUserByUsername(String username);
+
+    public void cancelarCita(Integer citaID);
 }
 
