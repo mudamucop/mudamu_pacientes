@@ -1,12 +1,8 @@
 package com.Mudamu.service.Login;
 
-import java.util.Optional;
-
-import com.Mudamu.model.User.User;
+import com.Mudamu.model.User;
 
 public interface LoginService {
-
-	//public Iterable<User> getAllUsers();
 
 	public User createUser(User user) throws Exception;
 

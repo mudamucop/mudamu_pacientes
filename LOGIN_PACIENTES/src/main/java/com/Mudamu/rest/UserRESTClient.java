@@ -3,11 +3,9 @@ package com.Mudamu.rest;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
+import com.Mudamu.model.User;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -15,12 +13,9 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
-import com.Mudamu.model.User.User;
-
 @Service
 public class UserRESTClient {
-	//localhost/Servidor ->http://localhost:8080/AlbumDbCRUD/resources/user		
-	
+
 	String urlDDBBService = "http://mudamudb.duckdns.org/mudamuMysql/service/user";
 	
 	ClientConfig clientConfig = new DefaultClientConfig();
@@ -33,7 +28,6 @@ public class UserRESTClient {
 	}
 	
 	
-	//Recoger User con id usando xml	
 	public User getUserXml(int id) {
 		User user=new User();
 		WebResource webResource = client.resource(urlDDBBService).path("user").queryParam("id", Integer.toString(id));
@@ -59,7 +53,6 @@ public class UserRESTClient {
 		return user;
 	}
 
-	//Delete User con path params	
 	public String userDelete(int id) {
 			WebResource webResource = client.resource(urlDDBBService).path("delete").path(Integer.toString(id));
 			ClientResponse clientResponse = webResource.type("text/plain").delete(ClientResponse.class);

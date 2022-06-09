@@ -1,4 +1,4 @@
-package com.Mudamu.model.User;
+package com.Mudamu.model;
 
 import java.io.Serializable;
 

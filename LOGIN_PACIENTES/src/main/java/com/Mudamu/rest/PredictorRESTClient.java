@@ -1,7 +1,5 @@
 package com.Mudamu.rest;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.codehaus.jettison.json.JSONException;
@@ -13,14 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 @Service
 public class PredictorRESTClient {
-	// localhost -> Servidor IA
 	String urlIAService = "http://mudamudb.duckdns.org:1880/ia";
 
 	ClientConfig clientConfig = new DefaultClientConfig();
@@ -33,9 +28,6 @@ public class PredictorRESTClient {
 	}
 
 	public void getDisease(Map<Integer, String> mapa, int idPac) {
-
-		List<String> lista = new ArrayList<>();
-		String lista2 = "";
 		StringBuilder sb = new StringBuilder();
 
 		for (Map.Entry<Integer, String> entry : mapa.entrySet()) {

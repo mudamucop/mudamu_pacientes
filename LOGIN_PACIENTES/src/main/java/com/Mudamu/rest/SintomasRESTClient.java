@@ -1,13 +1,8 @@
 package com.Mudamu.rest;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.Mudamu.model.CitasPaciente;
 import com.Mudamu.model.Sintomas;
-import com.Mudamu.model.User.User;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -17,7 +12,6 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 @Service
 public class SintomasRESTClient {
-	//localhost	-> Servidor IA
 	
 	String urlDDBBService = "http://mudamudb.duckdns.org/mudamuMysql/service/enfermedades_sintomas";
 	
