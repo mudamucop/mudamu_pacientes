@@ -9,6 +9,7 @@
     <meta name="author" content="" />
     <title>Login - SB Admin</title>
     <link href="css/styles.css" rel="stylesheet" />
+    <link rel="icon" href="img/muDamu.png">
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
@@ -25,12 +26,12 @@
                                 </div>
                                 <div class="card-body">
                                     <form th:action="@{/login}" method="post">
-                                        <div class="form-floating mb-3">
+                                        <div class="row form-floating mb-3 px-0 mx-1">
                                             <input class="form-control" name="username" type="text"
                                                 placeholder="Username" />
-                                            <label for="inputUsername">Tarjeta Sanitaria</label>
+                                            <label for="inputUsername col-12">Tarjeta Sanitaria</label>
                                         </div>
-                                        <div class="form-floating mb-3">
+                                        <div class="row form-floating mb-3 px-0 mx-1">
                                             <input class="form-control" name="password" type="password"
                                                 placeholder="Password" />
                                             <label for="inputPassword">Password</label>
