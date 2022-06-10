@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     let items = document.querySelectorAll('.drag');
-    items.forEach(function(item) {
+    items.forEach(function (item) {
         //item.addEventListener('dragenter', handleDragEnter, false);
 
         item.addEventListener('dragstart', handleDragStart, false);
@@ -111,24 +111,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function handleClickPrediccion(e) {
         let sintom = getSintomasSeleccionados();
 
-        console.log(sintom);
-        $.ajax({
-            url: '/pacientes/getPrediction',
-            //url: '/getPrediction',
-            type: "POST",
-            data: { 'sintomas': sintom },
-            contentType: "application/json",
-            cache: false,
-            success: function() {
-                $("#exampleModal").hide('medium');
-                document.getElementById("success").classList.remove("d-none");
-                //$("#success").modal('show');
-                setTimeout(function() { location.href = 'http://mudamu.duckdns.org/pacientes/pacPage'; }, 2000);
-            },
-            error: function() {
+        if (sintom.length == 0)alert("Introduzca mínimo un sintoma");
+        else {
+            $.ajax({
+                url: '/pacientes/getPrediction',
+                //url: '/getPrediction',
+                type: "POST",
+                data: { 'sintomas': sintom },
+                contentType: "application/json",
+                cache: false,
+                success: function () {
+                    $("#exampleModal").hide('medium');
+                    document.getElementById("success").classList.remove("d-none");
+                    //$("#success").modal('show');
+                    setTimeout(function () { location.href = 'http://mudamu.duckdns.org/pacientes/pacPage'; }, 2000);
+                },
+                error: function () {
 
-            },
-        });
+                },
+            });
+        }
     }
 
     let btnPrediccion = document.getElementById('predecir');
